@@ -114,8 +114,6 @@ public class Command {
 		return true;
 	}
 
-
-
 	void delete() throws NumberFormatException, IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("xを入力してください");
