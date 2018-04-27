@@ -54,17 +54,15 @@ public class Command {
 			break;
 
 		default:
-			System.out.println("目ン玉腐ってんのかオメェ！");
+			System.out.println("正しく認識されませんでした");
 			return;
 		}
-		
+
 		create(x, y, width, height,color);
 
 	}
 
-	boolean chkBoard() {
-		return false;
-	}
+
 
 	/**
 	 * 長方形の生成
@@ -85,9 +83,15 @@ public class Command {
 			System.out.println("ボードがいっぱいです");
 			return;
 		}
-		
+
 		//同一の値を持つ長方形が登録されているか線形探索
 		Rectangle keyRectangle = new Rectangle(x, y, width, height,color);
+
+		//ボードの位置に関する制約
+		if (!keyRectangle.onBoard(board_)) {
+			System.out.println("操作後の位置はボードの上である必要があります");
+			return;
+		}
 		for (Rectangle r : board_.rectangles_) {
 			if (r.equals(keyRectangle)) {
 				System.out.println(keyRectangle + "\nは登録済みです");

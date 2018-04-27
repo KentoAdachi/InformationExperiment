@@ -1,6 +1,6 @@
 /**
  * 長方形クラス
- * 
+ *
  * @author bp16001
  */
 public class Rectangle {
@@ -17,13 +17,20 @@ public class Rectangle {
 
 	}
 
+	public boolean onBoard(Board board) {
+		if (this.x_ >= 0 && this.y_ >= 0 && this.x_ + this.width_ <= board.width_
+				&& this.y_ + this.height_ <= board.height_)
+			return true;
+		return false;
+	}
+
 	public String toString() {
 		return "x " + x_ + "\ny " + y_ + "\nwidth " + width_ + "\nheight "
 				+ height_ + "\ncolor " + color_;
 	}
 
 	// 同一の長方形とは何か定義
-	boolean equals(Rectangle rectangle) {
+	public boolean equals(Rectangle rectangle) {
 		if (this.x_ == rectangle.x_ && this.y_ == rectangle.y_
 				&& this.width_ == rectangle.width_
 				&& this.height_ == rectangle.height_)

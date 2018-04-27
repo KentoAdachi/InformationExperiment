@@ -7,8 +7,9 @@ import java.util.ArrayList;
  *
  */
 public class Board {
-	int width, height;
-	final Color color_ = Color.Whilte;
+	int width_, height_;
+	final Color color_ = Color.Whilte;//これいる?
 	ArrayList<Rectangle> rectangles_ = new ArrayList<Rectangle>();
+
 
 }
