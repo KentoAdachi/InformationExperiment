@@ -102,12 +102,9 @@ public class Command {
 			return false;
 		}
 		//同一の値を持つ長方形が登録されているか線形探索
-		for (Rectangle r : board_.rectangles_) {
-			if (r.equals(keyRectangle)) {
-				System.out.println(keyRectangle + "\nは登録済みです");
-				return false;
-			}
-
+		if (board_.hasRectangle(keyRectangle)) {
+			System.out.println("その長方形は登録済みです");
+			return false;
 		}
 		//登録
 		board_.rectangles_.add(keyRectangle);
@@ -116,25 +113,22 @@ public class Command {
 
 	void delete() throws NumberFormatException, IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		System.out.println("xを入力してください");
-		int x = Integer.parseInt(reader.readLine());
-		System.out.println("yを入力してください");
-		int y = Integer.parseInt(reader.readLine());
-		System.out.println("幅を入力してください");
-		int width = Integer.parseInt(reader.readLine());
-		System.out.println("高さを入力してください");
-		int height = Integer.parseInt(reader.readLine());
-		delete(x, y, width, height);
+		System.out.println("削除する要素番号を選んでください");
+		displayBoard();
+		int index = Integer.parseInt(reader.readLine()) - 1;
+		Rectangle rectangle = board_.rectangles_.get(index);
+		delete(rectangle);
 	}
 
-	void delete(int x, int y, int width, int height) {
+
+	//操作系はboardクラスに実装してもいいような気がする
+	void delete(Rectangle rectangle) {
 		//色はなんでもいい
-		Rectangle keyRectangle = new Rectangle(x, y, width, height, Color.Cyan);
 		// すべての長方形を線形探索
 		for (Rectangle r : board_.rectangles_) {
 			// 合致する長方形を見つけた場合削除して抜ける
 			// 見つからなかった場合continue
-			if (r.equals(keyRectangle)) {
+			if (r.equals(rectangle)) {
 				board_.rectangles_.remove(r);
 				System.out.println("deleted");
 				return;
@@ -142,6 +136,21 @@ public class Command {
 		}
 		System.out.println("not found");
 
+	}
+
+	void scale() {
+
+	}
+
+	void scale(Rectangle rectangle,float mx,float my) {
+		//可能か判断
+		Rectangle r = new Rectangle(rectangle);
+		r.width_ = Math.round(r.width_ * mx);
+		r.height_ = Math.round(r.height_ * my);
+
+		if (r.onBoard(board_)&&r.hasArea()&&!board_.hasRectangle(rectangle)) {
+			rectangle = r;
+		}
 	}
 
 	void displayBoard() {

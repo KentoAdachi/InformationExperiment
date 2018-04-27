@@ -17,5 +17,20 @@ public class Board {
 		height_ = 400;
 	}
 
+	/**
+	 * 同じ長方形が登録されているか判定
+	 * @param rectangle
+	 * @return
+	 */
+	public boolean hasRectangle(Rectangle rectangle) {
+		for (Rectangle r : this.rectangles_) {
+			if (r.equals(rectangle))
+				return true;
+
+		}
+		return false;
+	}
+
+
 
 }

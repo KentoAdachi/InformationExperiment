@@ -16,6 +16,12 @@ public class Rectangle {
 		color_ = color;
 
 	}
+	public Rectangle(Rectangle rectangle) {
+		x_ = rectangle.x_;
+		y_ = rectangle.y_;
+		width_ = rectangle.width_;
+		height_ = rectangle.height_;
+	}
 
 	/**
 	 * 正しいサイズを持つか(辺の長さが正の正数であるか)判定する

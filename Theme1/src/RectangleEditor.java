@@ -12,7 +12,8 @@ public class RectangleEditor {
 	private static String OPARATION_LIST = "1:create\n"
 			+ "2:display\n"
 			+ "3:delete\n"
-			+ "4:exit\n";
+			+ "4:expand/shrink\n"
+			+ "5:exit\n";
 
 	public static void main(String[] args) throws IOException {
 		// 起動
@@ -39,7 +40,11 @@ public class RectangleEditor {
 				command.delete();
 				break;
 			case "4":
-			case "exit":
+			case "expand/shrink":
+
+				break;
+			case"5":
+			case"exit":
 				return;
 			default:
 				break;
