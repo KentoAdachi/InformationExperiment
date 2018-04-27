@@ -17,11 +17,24 @@ public class Rectangle {
 
 	}
 
+	/**
+	 * 正しいサイズを持つか(辺の長さが正の正数であるか)判定する
+	 * @return
+	 */
+	public boolean hasArea() {
+		return width_ > 0 && height_ > 0;
+
+	}
+
+	/**
+	 * ボード上にいるか判定する
+	 * @param board
+	 * @return
+	 */
 	public boolean onBoard(Board board) {
-		if (this.x_ >= 0 && this.y_ >= 0 && this.x_ + this.width_ <= board.width_
-				&& this.y_ + this.height_ <= board.height_)
-			return true;
-		return false;
+		return this.x_ >= 0 && this.y_ >= 0 && this.x_ + this.width_ <= board.width_
+				&& this.y_ + this.height_ <= board.height_;
+
 	}
 
 	public String toString() {
@@ -31,10 +44,9 @@ public class Rectangle {
 
 	// 同一の長方形とは何か定義
 	public boolean equals(Rectangle rectangle) {
-		if (this.x_ == rectangle.x_ && this.y_ == rectangle.y_
+		return this.x_ == rectangle.x_ && this.y_ == rectangle.y_
 				&& this.width_ == rectangle.width_
-				&& this.height_ == rectangle.height_)
-			return true;
-		return false;
+				&& this.height_ == rectangle.height_;
+
 	}
 }
