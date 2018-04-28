@@ -41,7 +41,7 @@ public class RectangleEditor {
 				break;
 			case "4":
 			case "expand/shrink":
-
+				command.scale();
 				break;
 			case"5":
 			case"exit":

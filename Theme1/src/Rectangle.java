@@ -21,6 +21,7 @@ public class Rectangle {
 		y_ = rectangle.y_;
 		width_ = rectangle.width_;
 		height_ = rectangle.height_;
+		color_ = rectangle.color_;
 	}
 
 	/**

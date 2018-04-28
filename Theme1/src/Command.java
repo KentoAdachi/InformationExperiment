@@ -70,88 +70,35 @@ public class Command {
 			default:
 				System.out.println("正しく認識されませんでした");
 			}
-		} while (!create(x, y, width, height, color));
+		} while (!board_.create(x, y, width, height, color));
 
 	}
 
-	/**
-	 * 長方形の生成
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 */
-	boolean create(int x, int y, int width, int height, Color color) {
-
-		//辺の長さに関する制約
-		if (width <= 0 || height <= 0) {
-			System.out.println("幅や高さは正数でなくてはいけません");
-			return false;
-		}
-		//ボードの登録数に関する制約
-		if (board_.rectangles_.size() >= MAX_NUMBER_OF_RECTANGLES) {
-			System.out.println("ボードがいっぱいです");
-			return false;
-		}
-
-		Rectangle keyRectangle = new Rectangle(x, y, width, height, color);
-
-		//ボードの位置に関する制約
-		if (!keyRectangle.onBoard(board_)) {
-			System.out.println("操作後の位置はボードの上である必要があります");
-			return false;
-		}
-		//同一の値を持つ長方形が登録されているか線形探索
-		if (board_.hasRectangle(keyRectangle)) {
-			System.out.println("その長方形は登録済みです");
-			return false;
-		}
-		//登録
-		board_.rectangles_.add(keyRectangle);
-		return true;
-	}
 
 	void delete() throws NumberFormatException, IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("削除する要素番号を選んでください");
 		displayBoard();
 		int index = Integer.parseInt(reader.readLine()) - 1;
-		Rectangle rectangle = board_.rectangles_.get(index);
-		delete(rectangle);
+		board_.delete(index);
 	}
 
 
-	//操作系はboardクラスに実装してもいいような気がする
-	void delete(Rectangle rectangle) {
-		//色はなんでもいい
-		// すべての長方形を線形探索
-		for (Rectangle r : board_.rectangles_) {
-			// 合致する長方形を見つけた場合削除して抜ける
-			// 見つからなかった場合continue
-			if (r.equals(rectangle)) {
-				board_.rectangles_.remove(r);
-				System.out.println("deleted");
-				return;
-			}
-		}
-		System.out.println("not found");
+
+	void scale() throws NumberFormatException, IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		displayBoard();
+		int index = Integer.parseInt(reader.readLine()) - 1;
+		System.out.println("幅の倍率を入力してください");
+		float mx = Float.parseFloat(reader.readLine());
+		System.out.println("高さの倍率を入力してください");
+		float my = Float.parseFloat(reader.readLine());
+
+		board_.scale(index, mx, my);
 
 	}
 
-	void scale() {
 
-	}
-
-	void scale(Rectangle rectangle,float mx,float my) {
-		//可能か判断
-		Rectangle r = new Rectangle(rectangle);
-		r.width_ = Math.round(r.width_ * mx);
-		r.height_ = Math.round(r.height_ * my);
-
-		if (r.onBoard(board_)&&r.hasArea()&&!board_.hasRectangle(rectangle)) {
-			rectangle = r;
-		}
-	}
 
 	void displayBoard() {
 		int i = 1;
