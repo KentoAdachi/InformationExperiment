@@ -10,10 +10,13 @@ import java.io.InputStreamReader;
  */
 public class RectangleEditor {
 	private static String OPARATION_LIST = "1:create\n"
-			+ "2:display\n"
-			+ "3:delete\n"
-			+ "4:expand/shrink\n"
-			+ "5:exit\n";
+			+ "2:move\n"
+			+ "3:expand/shrink\n"
+			+ "4:delete\n"
+			+ "5:deleteAll\n"
+			+ "6:intersect\n"
+			+ "7:displayBoard\n"
+			+ "8:exit\n";
 
 	public static void main(String[] args) throws IOException {
 		// 起動
@@ -29,27 +32,36 @@ public class RectangleEditor {
 			case "create":
 				command.create();
 				break;
-
 			case "2":
-			case "display":
-				command.displayBoard();
-
+			case "move":
+				command.move();
 				break;
 			case "3":
-			case "delete":
-				command.delete();
-				break;
-			case "4":
 			case "expand/shrink":
 				command.scale();
 				break;
+			case "4":
+			case "delete":
+				command.delete();
+				break;
 			case"5":
-			case"exit":
+			case"deleteAll":
+				command.deleteAll();
+				break;
+			case "6":
+			case "intersect":
+				System.out.println("intersectを実装");
+				break;
+			case "7":
+			case "displayBoard":
+				break;
+			case "8":
+			case "exit":
 				return;
 			default:
-				break;
+				continue;
 			}
-
+			command.displayBoard();
 		}
 	}
 

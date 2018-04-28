@@ -9,10 +9,7 @@ import java.io.InputStreamReader;
  *
  */
 public class Command {
-
-	private static final int MAX_NUMBER_OF_RECTANGLES = 10;
 	Board board_;
-
 	Command(Board board) {
 		board_ = board;
 	}
@@ -93,12 +90,25 @@ public class Command {
 		float mx = Float.parseFloat(reader.readLine());
 		System.out.println("高さの倍率を入力してください");
 		float my = Float.parseFloat(reader.readLine());
-
 		board_.scale(index, mx, my);
 
 	}
 
+	void move() throws NumberFormatException, IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		displayBoard();
+		int index = Integer.parseInt(reader.readLine()) - 1;
+		System.out.println("xの変位を入力してください");
+		int dx = Integer.parseInt(reader.readLine());
+		System.out.println("yの変位を入力してください");
+		int dy = Integer.parseInt(reader.readLine());
+		board_.move(index, dx, dy);
 
+	}
+
+	void deleteAll() {
+		board_ = new Board();
+	}
 
 	void displayBoard() {
 		int i = 1;
