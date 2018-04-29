@@ -104,7 +104,9 @@ public class Board {
 	 * @param r2
 	 * @return
 	 */
-	void intersect(Rectangle r1,Rectangle r2) {
+	void intersect(int index1,int index2) {
+		Rectangle r1 = new Rectangle(this.rectangles_.get(index1));
+		Rectangle r2 = new Rectangle(this.rectangles_.get(index2));
 		int sx = Math.max(r1.x_, r2.x_);
 		int sy = Math.max(r1.y_, r2.y_);
 		int ex = Math.min(r1.x_+r1.width_, r2.x_+r2.width_);

@@ -96,6 +96,7 @@ public class Command {
 
 	void move() throws NumberFormatException, IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("移動する長方形を選択してください");
 		displayBoard();
 		int index = Integer.parseInt(reader.readLine()) - 1;
 		System.out.println("xの変位を入力してください");
@@ -108,6 +109,21 @@ public class Command {
 
 	void deleteAll() {
 		board_ = new Board();
+	}
+	/**
+	 * 自分自身を選べてしまう
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
+	void intersect() throws NumberFormatException, IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("一つ目の長方形を選択してください");
+		displayBoard();
+		int index1 = Integer.parseInt(reader.readLine()) - 1;
+		System.out.println("二つ目の長方形を選択してください");
+		displayBoard();
+		int index2 = Integer.parseInt(reader.readLine()) - 1;
+		board_.intersect(index1, index2);
 	}
 
 	void displayBoard() {

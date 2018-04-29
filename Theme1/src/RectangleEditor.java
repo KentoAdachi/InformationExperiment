@@ -50,7 +50,7 @@ public class RectangleEditor {
 				break;
 			case "6":
 			case "intersect":
-				System.out.println("intersectを実装");
+				command.intersect();
 				break;
 			case "7":
 			case "displayBoard":
