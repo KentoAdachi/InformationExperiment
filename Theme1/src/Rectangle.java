@@ -44,6 +44,8 @@ public class Rectangle {
 
 	}
 
+
+
 	public String toString() {
 		return "x " + x_ + "\ny " + y_ + "\nwidth " + width_ + "\nheight "
 				+ height_ + "\ncolor " + color_;
