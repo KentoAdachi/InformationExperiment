@@ -11,9 +11,13 @@ import java.io.InputStreamReader;
  */
 public class Command {
 	private static final int MAX_ERROR_INPUTS = 3;
-	Board board_;
+	private Board board_;
 
-	Command(Board board) {
+	/**
+	 * コンストラクタ
+	 * @param board ボードを設定
+	 */
+	public Command(Board board) {
 		board_ = board;
 	}
 

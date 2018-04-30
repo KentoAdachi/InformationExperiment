@@ -5,8 +5,10 @@ package rectangleEditor;
  * @author bp16001
  */
 public class Rectangle {
-	int x_, y_, width_, height_;
-	Color color_;
+	@SuppressWarnings("javadoc")
+	public int x_, y_, width_, height_;
+	@SuppressWarnings("javadoc")
+	public Color color_;
 
 	/**
 	 * コンストラクタ
