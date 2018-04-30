@@ -1,3 +1,4 @@
+package rectangleEditor;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,8 +19,12 @@ public class RectangleEditor {
 			+ "7:displayBoard\n"
 			+ "8:exit\n";
 
+	/**
+	 * メインメソッド
+	 * @param args コマンドライン引数
+	 * @throws IOException BufferedReader.readline()
+	 */
 	public static void main(String[] args) throws IOException {
-		// 起動
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		Board board = new Board();
 		Command command = new Command(board);

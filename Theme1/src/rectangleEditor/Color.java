@@ -1,3 +1,4 @@
+package rectangleEditor;
 
 public enum Color {
 	Red,
