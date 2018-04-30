@@ -128,6 +128,7 @@ public class Command {
 				continue;
 			} catch (Exception e) {
 				System.out.println(e);
+				System.out.println("実在する要素番号を選んでください");
 			}
 		}
 
@@ -155,6 +156,7 @@ public class Command {
 				continue;
 			}catch (Exception e) {
 				System.out.println(e);
+				System.out.println("実在する要素番号を選んでください");
 			}
 		}
 
