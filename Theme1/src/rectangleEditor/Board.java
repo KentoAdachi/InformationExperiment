@@ -23,7 +23,6 @@ public class Board {
 	 * 幅と高さを指定する
 	 */
 	public Board() {
-		// TODO 自動生成されたコンストラクター・スタブ
 		width_ = 500;
 		height_ = 400;
 		rectangles_ = new ArrayList<Rectangle>();
