@@ -153,10 +153,9 @@ public class Command {
 				return;
 			}catch (NumberFormatException e) {
 				System.out.println("数値を入力してください");
-				continue;
+				break;
 			}catch (Exception e) {
 				System.out.println(e);
-				System.out.println("実在する要素番号を選んでください");
 			}
 		}
 
