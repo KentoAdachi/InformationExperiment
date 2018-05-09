@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 
 /**
  * 操作
- * なんだか忙しいクラス
  * @author bp16001
  *
  */
