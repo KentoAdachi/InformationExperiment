@@ -90,6 +90,10 @@ public class Command {
 	 * @throws IOException BufferedReader.readline()
 	 */
 	public void delete() throws IOException {
+		if (board_.getRectangles_().size() < 1) {
+			System.out.println("長方形は1つ以上存在しなければなりません");
+			return;
+		}
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		for (int count = 0; count < MAX_ERROR_INPUTS; count++) {
 			System.out.println("削除する要素番号を選んでください");
@@ -110,6 +114,10 @@ public class Command {
 	 * @throws IOException BufferedReader.readline()
 	 */
 	public void scale() throws IOException {
+		if (board_.getRectangles_().size() < 1) {
+			System.out.println("長方形は1つ以上存在しなければなりません");
+			return;
+		}
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		for (int count = 0; count < MAX_ERROR_INPUTS; count++) {
 			System.out.println("サイズを変更する長方形を選択してください");
@@ -139,6 +147,10 @@ public class Command {
 	 * @throws IOException BufferedReader.readline()
 	 */
 	public void move() throws  IOException {
+		if (board_.getRectangles_().size() < 1) {
+			System.out.println("長方形は1つ以上存在しなければなりません");
+			return;
+		}
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		for (int count = 0; count < MAX_ERROR_INPUTS; count++) {
 			System.out.println("移動する長方形を選択してください");
@@ -173,9 +185,13 @@ public class Command {
 	 * @throws IOException BufferedReader.readline()
 	 */
 	public void intersect() throws IOException {
-
+		if (board_.getRectangles_().size() < 2) {
+			System.out.println("長方形は2つ以上存在しなければなりません");
+			return;
+		}
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		for (int count = 0; count < MAX_ERROR_INPUTS; count++) {
+
 			System.out.println("一つ目の長方形を選択してください");
 			displayBoard();
 			try {
