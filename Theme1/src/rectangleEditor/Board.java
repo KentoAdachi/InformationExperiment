@@ -92,7 +92,7 @@ public class Board {
 	 * @param index リスト内での長方形の添え字
 	 */
 	public void delete(int index) {
-		rectangles_.remove(index);
+		this.rectangles_.remove(index);
 	}
 
 	/**
