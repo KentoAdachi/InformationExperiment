@@ -13,7 +13,7 @@ public class Board {
 	@SuppressWarnings("javadoc")
 	public int width_, height_;
 	@SuppressWarnings("javadoc")
-	public final Color color_ = Color.Whilte;
+	public final Color color_ = Color.White;
 	private ArrayList<Rectangle> rectangles_;
 
 	private static final int MAX_NUMBER_OF_RECTANGLES = 10;

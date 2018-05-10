@@ -22,5 +22,5 @@ public enum Color {
 	@SuppressWarnings("javadoc")
 	Cyan,
 	@SuppressWarnings("javadoc")
-	Whilte;
+	White;
 }
