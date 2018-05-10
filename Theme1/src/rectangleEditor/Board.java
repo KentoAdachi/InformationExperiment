@@ -72,6 +72,7 @@ public class Board {
 	 */
 	public void create(int x, int y, int width, int height, Color color) throws IllegalArgumentException {
 		//ボードの登録数に関する制約
+		//入力の前に移動、似たようなコードも一緒に移動する
 		if (this.rectangles_.size() >= MAX_NUMBER_OF_RECTANGLES) {
 			//			System.out.println("ボードがいっぱいです");
 			throw new ArrayIndexOutOfBoundsException("ボードがいっぱいです");
