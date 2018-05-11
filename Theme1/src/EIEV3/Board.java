@@ -21,13 +21,24 @@ public class Board {
 
 	/**
 	 * コンストラクタ
-	 * 幅と高さを指定する
+	 * 幅と高さを指定しない
 	 */
 	public Board() {
 		width_ = 500;
 		height_ = 400;
 		rectangles_ = new ArrayList<Rectangle>();
 
+	}
+	/**
+	 * コンストラクタ
+	 * 幅と高さを指定する
+	 * @param width
+	 * @param height
+	 */
+	public Board(int width,int height) {
+		width_ = width;
+		height_ = height;
+		rectangles_ = new ArrayList<Rectangle>();
 	}
 
 	/**

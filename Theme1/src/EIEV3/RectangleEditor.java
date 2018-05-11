@@ -22,8 +22,7 @@ public class RectangleEditor extends Applet implements Runnable {
 			+ "7:displayBoard\n"
 			+ "8:exit";
 
-	static Board board_ = new Board();
-	static Command command_ = new Command(board_);
+	static Board board_;
 	Thread thread = null;
 
 
@@ -32,6 +31,7 @@ public class RectangleEditor extends Applet implements Runnable {
 		thread = new Thread(this);
 		thread.start();
 		super.init();
+		board_ = new Board(getSize().width,getSize().height);
 	}
 
 	@Override
@@ -52,6 +52,7 @@ public class RectangleEditor extends Applet implements Runnable {
 		// TODO 自動生成されたメソッド・スタブ
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		Command command = new Command(board_);
 
 		while (true) {
 			System.out.println("操作一覧\n" + OPARATION_LIST);
@@ -60,43 +61,48 @@ public class RectangleEditor extends Applet implements Runnable {
 				switch (input) {
 				case "1":
 				case "create":
-					command_.create();
+					command.create();
 					break;
 				case "2":
 				case "move":
-					command_.move();
+					command.move();
 					break;
 				case "3":
 				case "expand/shrink":
-					command_.scale();
+					command.scale();
 					break;
 				case "4":
 				case "delete":
-					command_.delete();
+					command.delete();
 					break;
 				case "5":
 				case "deleteAll":
-					command_.deleteAll();
+					command.deleteAll();
 					break;
 				case "6":
 				case "intersect":
-					command_.intersect();
+					command.intersect();
 					break;
 				case "7":
 				case "displayBoard":
 					break;
 				case "8":
 				case "exit":
-					//ググったら環境によってはSecurityExceptionを投げてくるらしい
-					//今のところappletviewerは大丈夫そうだから放置
-					System.exit(0);
+					//環境によってはSecurityExceptionを投げてくる
+					try {
+					System.exit(0);//正常に終了できる場合は終了する
+					}catch (SecurityException e) {
+						System.out.println(e);
+						System.out.println("プログラムを終了します,ウインドウを閉じてください");
+						return;//applet側のスレッドが生きてるから制御が帰ってこない
+					}
 
 
 
 				default:
 					continue;
 				}
-				command_.displayBoard();
+				command.displayBoard();
 				repaint();
 			} catch (Exception e) {
 				// TODO: handle exception
