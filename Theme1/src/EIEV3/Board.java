@@ -32,8 +32,8 @@ public class Board {
 	/**
 	 * コンストラクタ
 	 * 幅と高さを指定する
-	 * @param width
-	 * @param height
+	 * @param width 幅
+	 * @param height 高さ
 	 */
 	public Board(int width,int height) {
 		width_ = width;

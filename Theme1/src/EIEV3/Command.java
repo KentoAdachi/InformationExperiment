@@ -175,7 +175,7 @@ public class Command {
 
 	/**
 	 * 長方形の削除
-	 * @throws IOException
+	 * @throws IOException delete
 	 */
 	public void deleteAll() throws IOException {
 		while(board_.getRectangles_().size() > 0) {
