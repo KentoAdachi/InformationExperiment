@@ -5,7 +5,6 @@ import java.util.ArrayList;
 /**
  * ボード
  *
- *	exeptionに関してはここで出力せずに例外を定義して投げる形がよい
  * @author bp16001
  *
  */
