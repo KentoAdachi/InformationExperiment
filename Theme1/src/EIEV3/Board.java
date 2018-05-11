@@ -1,4 +1,5 @@
-package rectangleEditor;
+package EIEV3;
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +14,7 @@ public class Board {
 	@SuppressWarnings("javadoc")
 	public int width_, height_;
 	@SuppressWarnings("javadoc")
-	public final Color color_ = Color.White;
+	public final Color color_ = Color.WHITE;
 	private ArrayList<Rectangle> rectangles_;
 
 	private static final int MAX_NUMBER_OF_RECTANGLES = 10;
@@ -141,21 +142,21 @@ public class Board {
 		int ey = Math.min(r1.y_ + r1.height_, r2.y_ + r2.height_);
 		int w = ex - sx;
 		int h = ey - sy;
-		Color color = Color.Cyan;
+		Color color = Color.CYAN;
 
 		if (r1.color_ == r2.color_) {
-			color = Color.Gray;
+			color = Color.GRAY;
 		}
-		if (r1.color_ == Color.Yellow && r2.color_ == Color.Blue
-				|| r1.color_ == Color.Blue && r2.color_ == Color.Yellow) {
-			color = Color.Green;
+		if (r1.color_ == Color.YELLOW && r2.color_ == Color.BLUE
+				|| r1.color_ == Color.BLUE && r2.color_ == Color.YELLOW) {
+			color = Color.GREEN;
 		}
-		if (r1.color_ == Color.Yellow && r2.color_ == Color.Red
-				|| r1.color_ == Color.Red && r2.color_ == Color.Yellow) {
-			color = Color.Orange;
+		if (r1.color_ == Color.YELLOW && r2.color_ == Color.RED
+				|| r1.color_ == Color.RED && r2.color_ == Color.YELLOW) {
+			color = Color.ORANGE;
 		}
-		if (r1.color_ == Color.Red && r2.color_ == Color.Blue || r1.color_ == Color.Blue && r2.color_ == Color.Red) {
-			color = Color.Magenta;
+		if (r1.color_ == Color.RED && r2.color_ == Color.BLUE || r1.color_ == Color.BLUE && r2.color_ == Color.RED) {
+			color = Color.MAGENTA;
 		}
 		if (w > 0 && h > 0) {
 			create(sx, sy, w, h, color);

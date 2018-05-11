@@ -1,4 +1,5 @@
-package rectangleEditor;
+package EIEV3;
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -56,19 +57,19 @@ public class Command {
 			switch (colorString) {
 			case "red":
 			case "1":
-				color = Color.Red;
+				color = Color.RED;
 				break;
 			case "blue":
 			case "2":
-				color = Color.Blue;
+				color = Color.BLUE;
 				break;
 			case "yellow":
 			case "3":
-				color = Color.Yellow;
+				color = Color.YELLOW;
 				break;
 			case "gray":
 			case "4":
-				color = Color.Gray;
+				color = Color.GRAY;
 				break;
 
 			default:

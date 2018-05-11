@@ -1,4 +1,7 @@
-package rectangleEditor;
+package EIEV3;
+
+import java.awt.Color;
+
 /**
  * 長方形クラス
  *
