@@ -30,6 +30,7 @@ public class Rectangle {
 		color_ = color;
 
 	}
+
 	/**
 	 * コンストラクタ
 	 * @param rectangle 複製元のコンストラクタ
@@ -62,8 +63,6 @@ public class Rectangle {
 
 	}
 
-
-
 	public String toString() {
 		return "x " + x_ + "\ny " + y_ + "\nwidth " + width_ + "\nheight "
 				+ height_ + "\ncolor " + color_;
@@ -80,4 +79,16 @@ public class Rectangle {
 				&& this.height_ == rectangle.height_;
 
 	}
+
+	/**
+	 * @param x
+	 * @param y
+	 * @return ヒット
+	 */
+	public boolean hit(int x, int y) {
+		//		指定した座標が長方形上に存在するかどうか判定する
+		return x > x_ && x < x_ + width_ && y > y_ && y < y_ + height_;
+
+	}
+
 }

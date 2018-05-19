@@ -1,6 +1,8 @@
 package EIEV3;
 
 import java.applet.Applet;
+import java.awt.Checkbox;
+import java.awt.CheckboxGroup;
 import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -22,27 +24,54 @@ public class RectangleEditor extends Applet implements Runnable {
 			+ "7:displayBoard\n"
 			+ "8:exit";
 
-	static Board board_;
-	Thread thread = null;
+	Board board_ = null;//new Board(0,0);//何故かここで初期化しないとヌルポで落ちることがある
+	Checkbox chx1_, chx2_, chx3_, chx4_;
+	private EventHandler handler = new EventHandler(this);
+
 
 
 	@Override
 	public void init() {
-		thread = new Thread(this);
+		Thread thread = new Thread(this);
 		thread.start();
 		super.init();
 		board_ = new Board(getSize().width,getSize().height);
+
+	    CheckboxGroup cbg = new CheckboxGroup();
+	    this.chx1_ = new Checkbox("red",cbg,true);
+	    this.chx1_.addItemListener(handler);
+	    this.add(chx1_);
+
+	    this.chx2_ = new Checkbox("blue",cbg,false);
+	    this.chx2_.addItemListener(handler);
+	    this.add(chx2_);
+
+	    this.chx3_ = new Checkbox("yellow",cbg,false);
+	    this.chx3_.addItemListener(handler);
+	    this.add(chx3_);
+
+	    this.chx4_ = new Checkbox("gray",cbg,false);
+	    this.chx4_.addItemListener(handler);
+	    this.add(chx4_);
+
+
+
+	    addMouseListener(handler);
+	    addKeyListener(handler);
+
+
 	}
 
 	@Override
 	public void paint(Graphics g) {
 		// TODO 自動生成されたメソッド
-
+		requestFocusInWindow();
 		ArrayList<Rectangle> list = board_.getRectangles_();
 		for (Rectangle rectangle : list) {
 			g.setColor(rectangle.color_);
 			g.fillRect(rectangle.x_, rectangle.y_, rectangle.width_, rectangle.height_);
 		}
+
 
 		super.paint(g);
 	}
@@ -106,9 +135,12 @@ public class RectangleEditor extends Applet implements Runnable {
 				repaint();
 			} catch (Exception e) {
 				// TODO: handle exception
+
 			}
 		}
 
 	}
+
+
 
 }

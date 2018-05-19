@@ -89,6 +89,7 @@ public class Board {
 			throw new ArrayIndexOutOfBoundsException("ボードがいっぱいです");
 		}
 		if (color == null) {
+
 			throw new IllegalArgumentException("正しい色を選択してください");
 		}
 		Rectangle rectangle = new Rectangle(x, y, width, height, color);
@@ -96,7 +97,6 @@ public class Board {
 		verify(rectangle);
 		//登録
 		this.rectangles_.add(rectangle);
-
 	}
 
 	/**
@@ -121,6 +121,19 @@ public class Board {
 		verify(rectangle);
 		this.rectangles_.set(index, rectangle);
 	}
+	/**
+	 * 右下の点を決めてリサイズ
+	 * @param index
+	 * @param x
+	 * @param y
+	 */
+	public void scale(int index, int x,int y) {
+		Rectangle rectangle = new Rectangle(this.rectangles_.get(index));
+		rectangle.width_ = x-rectangle.x_;
+		rectangle.height_ = y-rectangle.y_;
+		verify(rectangle);
+		this.rectangles_.set(index, rectangle);
+	}
 
 	/**
 	 * 長方形の移動
@@ -136,6 +149,7 @@ public class Board {
 		this.rectangles_.set(index, rectangle);
 
 	}
+
 
 
 	/**
@@ -171,6 +185,22 @@ public class Board {
 		if (w > 0 && h > 0) {
 			create(sx, sy, w, h, color);
 		}
+	}
+
+	/**
+	 * @param x
+	 * @param y
+	 * @return i
+	 */
+	public int search(int x,int y) {
+		for (int i = rectangles_.size()-1;i>=0;i--) {
+			Rectangle rectangle = rectangles_.get(i);
+			if (rectangle.hit(x, y)) {
+				return i;
+			}
+		}
+		return -1;
+
 	}
 
 	/**

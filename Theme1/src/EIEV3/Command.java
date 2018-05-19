@@ -76,10 +76,12 @@ public class Command {
 				System.out.println("正しく認識されませんでした");
 			}
 			try {
+				System.out.println(color);
 				board_.create(x, y, width, height, color);
 				return;
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				e.printStackTrace();
+				System.out.println(e);
 			}
 		}
 
