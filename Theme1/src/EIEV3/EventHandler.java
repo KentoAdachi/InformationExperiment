@@ -16,7 +16,7 @@ public class EventHandler implements MouseListener, ItemListener, KeyListener {
 	Color color_ = Color.RED;
 	int keyCodePressing_ = NULL;
 	Point tmpPosition;
-	Rectangle tmpRectangle;
+	int tmpRectangleIndex = NULL;
 
 	/**
 	 * @param rectangleEditor
@@ -29,14 +29,23 @@ public class EventHandler implements MouseListener, ItemListener, KeyListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
+		if (e.isAltDown()) {
+			int index = rectangleEditor_.board_.search(e.getPoint().x, e.getPoint().y);
+			if (tmpRectangleIndex == NULL) {
+				tmpRectangleIndex = index;
+			}else {
+				if (index != NULL) {
+					rectangleEditor_.board_.intersect(tmpRectangleIndex, index);
+					tmpRectangleIndex =NULL;
+				}
+			}
+		}
 
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		tmpPosition = e.getPoint();
-		System.out.println("press");
-
 		System.out.println(e);
 	}
 
@@ -59,7 +68,11 @@ public class EventHandler implements MouseListener, ItemListener, KeyListener {
 		System.out.println(e);
 		System.out.println(e.getModifiersEx());
 		System.out.println(e.isMetaDown());
-
+	}
+		private void intersect(Point pressPosition, Point releasePosition) {
+		int index1 = rectangleEditor_.board_.search(pressPosition.x, pressPosition.y);
+		int index2 = 0;
+		rectangleEditor_.board_.intersect(index1, index2);
 	}
 
 

@@ -105,6 +105,7 @@ public class Board {
 	 */
 	public void delete(int index) {
 		this.rectangles_.remove(index);
+
 	}
 
 	/**
@@ -149,7 +150,6 @@ public class Board {
 		this.rectangles_.set(index, rectangle);
 
 	}
-
 
 
 	/**
