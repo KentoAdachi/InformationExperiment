@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * ボード
  *
- * @author bp16001
+ * @author bp16001 足立賢人
  *
  */
 public class Board {
