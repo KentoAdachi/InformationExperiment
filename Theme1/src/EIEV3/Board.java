@@ -57,19 +57,20 @@ public class Board {
 	/**
 	 * 長方形の大きさ、位置、登録済みでないかを調べ、適切に例外を投げる
 	 * @param rectangle 長方形
+	 * @throws Exception
 	 */
-	private void verify(Rectangle rectangle)throws IllegalArgumentException, RuntimeException {
+	private void verify(Rectangle rectangle)throws Exception {
 		//辺の長さに関する制約
 		if (!rectangle.hasArea()) {
-			throw new IllegalArgumentException("幅や高さは正数でなくてはいけません");
+			throw new Exception("幅や高さは正数でなくてはいけません");
 		}
 		//ボードの位置に関する制約
 		if (!rectangle.onBoard(this)) {
-			throw new IllegalArgumentException("操作後の位置はボードの上である必要があります");
+			throw new Exception("操作後の位置はボードの上である必要があります");
 		}
 		//同一の値を持つ長方形が登録されているか線形探索
 		if (this.hasRectangle(rectangle)) {
-			throw new RuntimeException("その長方形は登録済みです");
+			throw new Exception("その長方形は登録済みです");
 		}
 	}
 
@@ -80,9 +81,9 @@ public class Board {
 	 * @param width 幅
 	 * @param height 高さ
 	 * @param color 色
-	 * @throws IllegalArgumentException 正しくない引数
+	 * @throws Exception
 	 */
-	public void create(int x, int y, int width, int height, Color color) throws IllegalArgumentException {
+	public void create(int x, int y, int width, int height, Color color) throws Exception {
 		//ボードの登録数に関する制約
 		//入力の前に移動、似たようなコードも一緒に移動する
 		if (this.rectangles_.size() >= MAX_NUMBER_OF_RECTANGLES) {
@@ -91,7 +92,7 @@ public class Board {
 		}
 		if (color == null) {
 
-			throw new IllegalArgumentException("正しい色を選択してください");
+			throw new Exception("正しい色を選択してください");
 		}
 		Rectangle rectangle = new Rectangle(x, y, width, height, color);
 		//辺の長さに関する制約
@@ -114,8 +115,9 @@ public class Board {
 	 * @param index リスト内での長方形の添え字
 	 * @param mx x倍率
 	 * @param my y倍率
+	 * @throws Exception
 	 */
-	public void scale(int index, float mx, float my) {
+	public void scale(int index, float mx, float my) throws Exception {
 		//可能か判断
 		Rectangle rectangle = new Rectangle(this.rectangles_.get(index));
 		rectangle.width_ = Math.round(rectangle.width_ * mx);
@@ -128,8 +130,9 @@ public class Board {
 	 * @param index
 	 * @param x
 	 * @param y
+	 * @throws Exception
 	 */
-	public void scale(int index, int x,int y) {
+	public void scale(int index, int x,int y) throws Exception {
 		Rectangle rectangle = new Rectangle(this.rectangles_.get(index));
 		rectangle.width_ = x-rectangle.x_;
 		rectangle.height_ = y-rectangle.y_;
@@ -142,8 +145,9 @@ public class Board {
 	 * @param index 長方形のリスト内での添え字
 	 * @param dx x変位
 	 * @param dy y変位
+	 * @throws Exception
 	 */
-	public void move(int index, int dx, int dy) {
+	public void move(int index, int dx, int dy) throws Exception {
 		Rectangle rectangle = new Rectangle(this.rectangles_.get(index));
 		rectangle.x_ += dx;
 		rectangle.y_ += dy;
@@ -157,8 +161,9 @@ public class Board {
 	 * 指定した長方形が重なっている場合新その領域で新たな長方形を作成する
 	 * @param index1 指定した長方形のリスト内での添え字
 	 * @param index2 指定した長方形のリスト内での添え字
+	 * @throws Exception
 	 */
-	public void intersect(int index1, int index2) {
+	public void intersect(int index1, int index2) throws Exception {
 		Rectangle r1 = new Rectangle(this.rectangles_.get(index1));
 		Rectangle r2 = new Rectangle(this.rectangles_.get(index2));
 		int sx = Math.max(r1.x_, r2.x_);
@@ -192,15 +197,16 @@ public class Board {
 	 * @param x
 	 * @param y
 	 * @return i
+	 * @throws Exception
 	 */
-	public int search(int x,int y) {
+	public int search(int x,int y) throws Exception {
 		for (int i = rectangles_.size()-1;i>=0;i--) {
 			Rectangle rectangle = rectangles_.get(i);
 			if (rectangle.hit(x, y)) {
 				return i;
 			}
 		}
-		return -1;
+		throw new Exception();
 
 	}
 

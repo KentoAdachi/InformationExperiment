@@ -26,11 +26,9 @@ public class RectangleEditor extends Applet implements Runnable {
 			+ "8:exit";
 
 	Board board_ = null;//new Board(0,0);//何故かここで初期化しないとヌルポで落ちることがある
-	Checkbox chx1_, chx2_, chx3_, chx4_;
-	Button btn_;
-	private EventHandler handler = new EventHandler(this);
-
-
+	Checkbox redchx_, bluechx_, yellowchx_, graychx_;
+	Button deletebtn_;
+	private EventHandler handler_ = new EventHandler(this);
 
 	@Override
 	public void init() {
@@ -40,32 +38,31 @@ public class RectangleEditor extends Applet implements Runnable {
 		board_ = new Board(getSize().width,getSize().height);
 
 	    CheckboxGroup cbg = new CheckboxGroup();
-	    this.chx1_ = new Checkbox("red",cbg,true);
-	    this.chx1_.addItemListener(handler);
-	    this.add(chx1_);
+	    this.redchx_ = new Checkbox("red",cbg,true);
+	    this.redchx_.addItemListener(handler_);
+	    this.add(redchx_);
 
-	    this.chx2_ = new Checkbox("blue",cbg,false);
-	    this.chx2_.addItemListener(handler);
-	    this.add(chx2_);
+	    this.bluechx_ = new Checkbox("blue",cbg,false);
+	    this.bluechx_.addItemListener(handler_);
+	    this.add(bluechx_);
 
-	    this.chx3_ = new Checkbox("yellow",cbg,false);
-	    this.chx3_.addItemListener(handler);
-	    this.add(chx3_);
+	    this.yellowchx_ = new Checkbox("yellow",cbg,false);
+	    this.yellowchx_.addItemListener(handler_);
+	    this.add(yellowchx_);
 
-	    this.chx4_ = new Checkbox("gray",cbg,false);
-	    this.chx4_.addItemListener(handler);
-	    this.add(chx4_);
+	    this.graychx_ = new Checkbox("gray",cbg,false);
+	    this.graychx_.addItemListener(handler_);
+	    this.add(graychx_);
 
-	    btn_ = new Button("deleteAll");
-	    this.add(btn_);
-	    addMouseListener(handler);
-	    addKeyListener(handler);
-	    btn_.addActionListener(handler);
+	    deletebtn_ = new Button("deleteAll");
+	    this.add(deletebtn_);
+	    addMouseListener(handler_);
+	    addKeyListener(handler_);
+	    deletebtn_.addActionListener(handler_);
 	}
 
 	@Override
 	public void paint(Graphics g) {
-		// TODO 自動生成されたメソッド
 		requestFocusInWindow();
 		ArrayList<Rectangle> list = board_.getRectangles_();
 		for (Rectangle rectangle : list) {
@@ -79,8 +76,6 @@ public class RectangleEditor extends Applet implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO 自動生成されたメソッド・スタブ
-
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		Command command = new Command(board_);
 
