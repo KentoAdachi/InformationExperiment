@@ -2,14 +2,23 @@ package EIEV3;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
-public class EventHandler implements MouseListener, ItemListener, KeyListener {
+/**
+ * 無駄な文章を削除する
+ * イベントハンドラ
+ * @author kent
+ *
+ */
+public class EventHandler implements MouseListener, ItemListener, KeyListener,ActionListener {
 
 	private static final int NULL = -1;
 	RectangleEditor rectangleEditor_;
@@ -162,4 +171,19 @@ public class EventHandler implements MouseListener, ItemListener, KeyListener {
 		keyCodePressing_ = NULL;
 		System.out.println(e);
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+		try {
+			rectangleEditor_.board_.deleteAll();
+			rectangleEditor_.repaint();
+
+		} catch (IOException e1) {
+			// TODO 自動生成された catch ブロック
+			e1.printStackTrace();
+		}
+
+	}
+
 }

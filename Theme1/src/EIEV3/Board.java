@@ -1,5 +1,6 @@
 package EIEV3;
 import java.awt.Color;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -201,6 +202,12 @@ public class Board {
 		}
 		return -1;
 
+	}
+
+	public void deleteAll() throws IOException {
+		while(this.rectangles_.size() > 0) {
+			delete(0);
+		}
 	}
 
 	/**

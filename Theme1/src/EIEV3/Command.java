@@ -180,9 +180,7 @@ public class Command {
 	 * @throws IOException delete
 	 */
 	public void deleteAll() throws IOException {
-		while(board_.getRectangles_().size() > 0) {
-			board_.delete(0);
-		}
+		board_.deleteAll();
 	}
 
 	/**

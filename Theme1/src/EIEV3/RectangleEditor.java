@@ -60,6 +60,7 @@ public class RectangleEditor extends Applet implements Runnable {
 	    this.add(btn_);
 	    addMouseListener(handler);
 	    addKeyListener(handler);
+	    btn_.addActionListener(handler);
 	}
 
 	@Override
