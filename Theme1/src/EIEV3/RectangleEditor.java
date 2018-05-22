@@ -1,6 +1,7 @@
 package EIEV3;
 
 import java.applet.Applet;
+import java.awt.Button;
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
 import java.awt.Graphics;
@@ -26,6 +27,7 @@ public class RectangleEditor extends Applet implements Runnable {
 
 	Board board_ = null;//new Board(0,0);//何故かここで初期化しないとヌルポで落ちることがある
 	Checkbox chx1_, chx2_, chx3_, chx4_;
+	Button btn_;
 	private EventHandler handler = new EventHandler(this);
 
 
@@ -54,12 +56,10 @@ public class RectangleEditor extends Applet implements Runnable {
 	    this.chx4_.addItemListener(handler);
 	    this.add(chx4_);
 
-
-
+	    btn_ = new Button("deleteAll");
+	    this.add(btn_);
 	    addMouseListener(handler);
 	    addKeyListener(handler);
-
-
 	}
 
 	@Override
@@ -125,9 +125,6 @@ public class RectangleEditor extends Applet implements Runnable {
 						System.out.println("プログラムを終了します,ウインドウを閉じてください");
 						return;//applet側のスレッドが生きてるから制御が帰ってこない
 					}
-
-
-
 				default:
 					continue;
 				}
@@ -135,7 +132,6 @@ public class RectangleEditor extends Applet implements Runnable {
 				repaint();
 			} catch (Exception e) {
 				// TODO: handle exception
-
 			}
 		}
 
