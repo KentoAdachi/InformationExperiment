@@ -4,7 +4,7 @@ import java.awt.Color;
 
 /**
  * 長方形クラス
- *
+ * g
  * @author bp16001
  */
 public class Rectangle {

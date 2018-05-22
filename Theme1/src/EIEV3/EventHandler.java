@@ -52,7 +52,7 @@ public class EventHandler implements MouseListener, ItemListener, KeyListener, A
 					try {
 						rectangleEditor_.board_.intersect(tmpRectangleIndex, index);
 					} catch (Exception e1) {
-						// TODO 自動生成された catch
+						// TODO 自動生成された catc
 						e1.printStackTrace();
 					}
 					tmpRectangleIndex = NULL;

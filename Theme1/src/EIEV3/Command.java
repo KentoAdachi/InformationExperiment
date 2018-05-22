@@ -35,7 +35,7 @@ public class Command {
 		int width = 0;
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		for (int count = 0; count < MAX_ERROR_INPUTS; count++) {
-			try {
+			try {//
 				System.out.println("xを入力してください");
 				x = Integer.parseInt(reader.readLine());
 				System.out.println("yを入力してください");

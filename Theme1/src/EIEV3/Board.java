@@ -161,7 +161,7 @@ public class Board {
 	 * 指定した長方形が重なっている場合新その領域で新たな長方形を作成する
 	 * @param index1 指定した長方形のリスト内での添え字
 	 * @param index2 指定した長方形のリスト内での添え字
-	 * @throws Exception
+	 * @throws Exception i
 	 */
 	public void intersect(int index1, int index2) throws Exception {
 		Rectangle r1 = new Rectangle(this.rectangles_.get(index1));

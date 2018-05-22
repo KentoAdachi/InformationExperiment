@@ -49,7 +49,7 @@ public class RectangleEditor extends Applet implements Runnable {
 	    this.yellowchx_ = new Checkbox("yellow",cbg,false);
 	    this.yellowchx_.addItemListener(handler_);
 	    this.add(yellowchx_);
-
+//
 	    this.graychx_ = new Checkbox("gray",cbg,false);
 	    this.graychx_.addItemListener(handler_);
 	    this.add(graychx_);
