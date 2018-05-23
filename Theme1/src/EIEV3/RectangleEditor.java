@@ -5,29 +5,23 @@ import java.awt.Button;
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
 import java.awt.Graphics;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- * マルチスレッドに対応
+ * 操作系2(直感型)
  *
  * @author bp16001
  *
  */
 public class RectangleEditor extends Applet implements Runnable {
-	private static String OPARATION_LIST = "1:create\n"
-			+ "2:move\n"
-			+ "3:expand/shrink\n"
-			+ "4:delete\n"
-			+ "5:deleteAll\n"
-			+ "6:intersect\n"
-			+ "7:displayBoard\n"
-			+ "8:exit";
+	/**
+	 * ボード
+	 */
+	public Board board_ = null;//new Board(0,0);//何故かここで初期化しないとヌルポで落ちることがある
 
-	Board board_ = null;//new Board(0,0);//何故かここで初期化しないとヌルポで落ちることがある
-	Checkbox redchx_, bluechx_, yellowchx_, graychx_;
-	Button deletebtn_;
+	@SuppressWarnings("javadoc")
+	public Checkbox redchx_, bluechx_, yellowchx_, graychx_;
+	private Button deletebtn_;
 	private EventHandler handler_ = new EventHandler(this);
 
 	@Override
@@ -35,30 +29,30 @@ public class RectangleEditor extends Applet implements Runnable {
 		Thread thread = new Thread(this);
 		thread.start();
 		super.init();
-		board_ = new Board(getSize().width,getSize().height);
+		board_ = new Board(getSize().width, getSize().height);
 
-	    CheckboxGroup cbg = new CheckboxGroup();
-	    this.redchx_ = new Checkbox("red",cbg,true);
-	    this.redchx_.addItemListener(handler_);
-	    this.add(redchx_);
+		CheckboxGroup cbg = new CheckboxGroup();
+		this.redchx_ = new Checkbox("red", cbg, true);
+		this.redchx_.addItemListener(handler_);
+		this.add(redchx_);
 
-	    this.bluechx_ = new Checkbox("blue",cbg,false);
-	    this.bluechx_.addItemListener(handler_);
-	    this.add(bluechx_);
+		this.bluechx_ = new Checkbox("blue", cbg, false);
+		this.bluechx_.addItemListener(handler_);
+		this.add(bluechx_);
 
-	    this.yellowchx_ = new Checkbox("yellow",cbg,false);
-	    this.yellowchx_.addItemListener(handler_);
-	    this.add(yellowchx_);
-//
-	    this.graychx_ = new Checkbox("gray",cbg,false);
-	    this.graychx_.addItemListener(handler_);
-	    this.add(graychx_);
+		this.yellowchx_ = new Checkbox("yellow", cbg, false);
+		this.yellowchx_.addItemListener(handler_);
+		this.add(yellowchx_);
 
-	    deletebtn_ = new Button("deleteAll");
-	    this.add(deletebtn_);
-	    addMouseListener(handler_);
-	    addKeyListener(handler_);
-	    deletebtn_.addActionListener(handler_);
+		this.graychx_ = new Checkbox("gray", cbg, false);
+		this.graychx_.addItemListener(handler_);
+		this.add(graychx_);
+
+		deletebtn_ = new Button("deleteAll");
+		this.add(deletebtn_);
+		addMouseListener(handler_);
+		addKeyListener(handler_);
+		deletebtn_.addActionListener(handler_);
 	}
 
 	@Override
@@ -70,69 +64,11 @@ public class RectangleEditor extends Applet implements Runnable {
 			g.fillRect(rectangle.x_, rectangle.y_, rectangle.width_, rectangle.height_);
 		}
 
-
 		super.paint(g);
 	}
 
 	@Override
 	public void run() {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		Command command = new Command(board_);
-
-		while (true) {
-			System.out.println("操作一覧\n" + OPARATION_LIST);
-			try {
-				String input = reader.readLine();
-				switch (input) {
-				case "1":
-				case "create":
-					command.create();
-					break;
-				case "2":
-				case "move":
-					command.move();
-					break;
-				case "3":
-				case "expand/shrink":
-					command.scale();
-					break;
-				case "4":
-				case "delete":
-					command.delete();
-					break;
-				case "5":
-				case "deleteAll":
-					command.deleteAll();
-					break;
-				case "6":
-				case "intersect":
-					command.intersect();
-					break;
-				case "7":
-				case "displayBoard":
-					break;
-				case "8":
-				case "exit":
-					//環境によってはSecurityExceptionを投げてくる
-					try {
-					System.exit(0);//正常に終了できる場合は終了する
-					}catch (SecurityException e) {
-						System.out.println(e);
-						System.out.println("プログラムを終了します,ウインドウを閉じてください");
-						return;//applet側のスレッドが生きてるから制御が帰ってこない
-					}
-				default:
-					continue;
-				}
-				command.displayBoard();
-				repaint();
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
-
 	}
-
-
 
 }

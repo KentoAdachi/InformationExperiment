@@ -8,9 +8,25 @@ import java.awt.Color;
  * @author bp16001
  */
 public class Rectangle {
-	@SuppressWarnings("javadoc")
-	public int x_, y_, width_, height_;
-	@SuppressWarnings("javadoc")
+	/**
+	 * 左上頂点x座標
+	 */
+	public int x_;
+	/**
+	 * 左上頂点y座標
+	 */
+	public int y_;
+	/**
+	 * 幅
+	 */
+	public int width_;
+	/**
+	 * 高さ
+	 */
+	public int height_;
+	/**
+	 * 色
+	 */
 	public Color color_;
 
 	/**
@@ -81,12 +97,12 @@ public class Rectangle {
 	}
 
 	/**
-	 * @param x
-	 * @param y
+	 * 指定した座標が長方形上に存在するかどうか判定する
+	 * @param x x座標
+	 * @param y y座標
 	 * @return ヒット
 	 */
 	public boolean hit(int x, int y) {
-		//		指定した座標が長方形上に存在するかどうか判定する
 		return x > x_ && x < x_ + width_ && y > y_ && y < y_ + height_;
 
 	}

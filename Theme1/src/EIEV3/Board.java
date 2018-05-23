@@ -1,6 +1,6 @@
 package EIEV3;
+
 import java.awt.Color;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -11,31 +11,29 @@ import java.util.ArrayList;
  */
 public class Board {
 
-	@SuppressWarnings("javadoc")
-	public int width_, height_;
-	@SuppressWarnings("javadoc")
-	public final Color color_ = Color.WHITE;
+	/**
+	 * 幅
+	 */
+	public int width_;
+	/**
+	 * 高さ
+	 */
+	public int height_;
+	/**
+	 * 色
+	 */
+	public Color color_ = Color.WHITE;
 	private ArrayList<Rectangle> rectangles_;
 
 	private static final int MAX_NUMBER_OF_RECTANGLES = 10;
 
 	/**
 	 * コンストラクタ
-	 * 幅と高さを指定しない
-	 */
-	public Board() {
-		width_ = 500;
-		height_ = 400;
-		rectangles_ = new ArrayList<Rectangle>();
-
-	}
-	/**
-	 * コンストラクタ
 	 * 幅と高さを指定する
 	 * @param width 幅
 	 * @param height 高さ
 	 */
-	public Board(int width,int height) {
+	public Board(int width, int height) {
 		width_ = width;
 		height_ = height;
 		rectangles_ = new ArrayList<Rectangle>();
@@ -57,9 +55,9 @@ public class Board {
 	/**
 	 * 長方形の大きさ、位置、登録済みでないかを調べ、適切に例外を投げる
 	 * @param rectangle 長方形
-	 * @throws Exception
+	 * @throws Exception 例外
 	 */
-	private void verify(Rectangle rectangle)throws Exception {
+	private void verify(Rectangle rectangle) throws Exception {
 		//辺の長さに関する制約
 		if (!rectangle.hasArea()) {
 			throw new Exception("幅や高さは正数でなくてはいけません");
@@ -81,14 +79,13 @@ public class Board {
 	 * @param width 幅
 	 * @param height 高さ
 	 * @param color 色
-	 * @throws Exception
+	 * @throws Exception 例外
 	 */
 	public void create(int x, int y, int width, int height, Color color) throws Exception {
 		//ボードの登録数に関する制約
-		//入力の前に移動、似たようなコードも一緒に移動する
 		if (this.rectangles_.size() >= MAX_NUMBER_OF_RECTANGLES) {
 			//			System.out.println("ボードがいっぱいです");
-			throw new ArrayIndexOutOfBoundsException("ボードがいっぱいです");
+			throw new Exception("ボードがいっぱいです");
 		}
 		if (color == null) {
 
@@ -112,30 +109,16 @@ public class Board {
 
 	/**
 	 * 長方形の大きさの変更
-	 * @param index リスト内での長方形の添え字
-	 * @param mx x倍率
-	 * @param my y倍率
-	 * @throws Exception
-	 */
-	public void scale(int index, float mx, float my) throws Exception {
-		//可能か判断
-		Rectangle rectangle = new Rectangle(this.rectangles_.get(index));
-		rectangle.width_ = Math.round(rectangle.width_ * mx);
-		rectangle.height_ = Math.round(rectangle.height_ * my);
-		verify(rectangle);
-		this.rectangles_.set(index, rectangle);
-	}
-	/**
 	 * 右下の点を決めてリサイズ
-	 * @param index
-	 * @param x
-	 * @param y
-	 * @throws Exception
+	 * @param index 添え字
+	 * @param x x座標
+	 * @param y y座標
+	 * @throws Exception 例外
 	 */
-	public void scale(int index, int x,int y) throws Exception {
+	public void scale(int index, int x, int y) throws Exception {
 		Rectangle rectangle = new Rectangle(this.rectangles_.get(index));
-		rectangle.width_ = x-rectangle.x_;
-		rectangle.height_ = y-rectangle.y_;
+		rectangle.width_ = x - rectangle.x_;
+		rectangle.height_ = y - rectangle.y_;
 		verify(rectangle);
 		this.rectangles_.set(index, rectangle);
 	}
@@ -145,7 +128,7 @@ public class Board {
 	 * @param index 長方形のリスト内での添え字
 	 * @param dx x変位
 	 * @param dy y変位
-	 * @throws Exception
+	 * @throws Exception 例外
 	 */
 	public void move(int index, int dx, int dy) throws Exception {
 		Rectangle rectangle = new Rectangle(this.rectangles_.get(index));
@@ -155,7 +138,6 @@ public class Board {
 		this.rectangles_.set(index, rectangle);
 
 	}
-
 
 	/**
 	 * 指定した長方形が重なっている場合新その領域で新たな長方形を作成する
@@ -194,13 +176,13 @@ public class Board {
 	}
 
 	/**
-	 * @param x
-	 * @param y
-	 * @return i
-	 * @throws Exception
+	 * @param x x座標
+	 * @param y y座標
+	 * @return i 添え字
+	 * @throws Exception 例外
 	 */
-	public int search(int x,int y) throws Exception {
-		for (int i = rectangles_.size()-1;i>=0;i--) {
+	public int search(int x, int y) throws Exception {
+		for (int i = rectangles_.size() - 1; i >= 0; i--) {
 			Rectangle rectangle = rectangles_.get(i);
 			if (rectangle.hit(x, y)) {
 				return i;
@@ -210,8 +192,11 @@ public class Board {
 
 	}
 
-	public void deleteAll() throws IOException {
-		while(this.rectangles_.size() > 0) {
+	/**
+	 * 全部消す
+	 */
+	public void deleteAll() {
+		while (this.rectangles_.size() > 0) {
 			delete(0);
 		}
 	}

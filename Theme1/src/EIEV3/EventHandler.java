@@ -10,7 +10,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 
 /**
  * 無駄な文章を削除する
@@ -21,13 +20,13 @@ import java.io.IOException;
 public class EventHandler implements MouseListener, ItemListener, KeyListener, ActionListener {
 
 	private static final int NULL = -1;
-	RectangleEditor rectangleEditor_;
-	Color color_ = Color.RED;
-	Point tmpPosition;
-	int tmpRectangleIndex = NULL;
+	private RectangleEditor rectangleEditor_;
+	private Color color_ = Color.RED;
+	private Point tmpPosition;
+	private int tmpRectangleIndex = NULL;
 
 	/**
-	 * @param rectangleEditor
+	 * @param rectangleEditor メインクラス
 	 */
 	public EventHandler(RectangleEditor rectangleEditor) {
 		// TODO 自動生成されたコンストラクター・スタブ
@@ -158,13 +157,8 @@ public class EventHandler implements MouseListener, ItemListener, KeyListener, A
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		try {
-			rectangleEditor_.board_.deleteAll();
-			rectangleEditor_.repaint();
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		rectangleEditor_.board_.deleteAll();
+		rectangleEditor_.repaint();
 
 	}
 
