@@ -8,7 +8,7 @@ int main(void)
   {
     int j;
     for(j=0;j<sizeof(int);j++)
-      printf("%p %x\n",((char *)&i+j),*((char *)&i+j));
+      printf("%p %2x\n",((char *)&i+j),*((char *)&i+j));
   }
   
   return 0;

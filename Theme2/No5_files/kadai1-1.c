@@ -6,8 +6,8 @@ int main(void)
   
   i=511;
 
-  printf("Value=   \n",  );
-  printf("Address=   \n",  );
+  printf("Value= %d\n", i );
+  printf("Address= %p\n", &i );
   
   return 0;
 }

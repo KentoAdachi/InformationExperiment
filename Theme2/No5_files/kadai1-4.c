@@ -5,7 +5,7 @@ int main(void)
   int i;
   int *pi;
 
-  i=-1;
+  i= -1;
 
   pi=&i;
 
