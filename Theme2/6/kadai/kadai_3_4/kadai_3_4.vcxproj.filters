@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="kadai1.c">
+    <ClCompile Include="Source.c">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
