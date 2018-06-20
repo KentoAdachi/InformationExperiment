@@ -111,22 +111,17 @@ int main(int argc, char *argv[])
 //計算をdouble からfloat に変更
 void grayscale(UCHAR gray[][DIM2], UCHAR data[][DIM2][DIM3], int n_gyou, int n_retu)
 {
-	short g, r, k;
-	short tmp;
+	short g, r;
+	//short tmp;
 	//int imax = DIM1 * DIM2*DIM3;
-	int i = 0;
-
+	
 	for (g = 0; g < n_gyou; g++)
-		for (r = 0; r < n_retu; r++)
+		for (r = 0; r < n_retu;r++)
 		{
-			tmp = 0;
-			tmp = data[g][r][0] + data[g][r][1] + data[g][r][2];//展開
-			//for (k = 0; k < DIM3; k++)
-			//{
-			//	tmp += data[g][r][k];
-			//}
-			gray[g][r] = (UCHAR)((float)tmp /3 + 0.5f ); /* 平均値を四捨五入 */
+			gray[g][r] = (UCHAR)(((data[g][r][0] + data[g][r][1] + data[g][r][2])*2+3)/6);
 		}
+	
+
 	//UCHAR *gr = gray[0];
 	//UCHAR *da = data[0][0];
 	//for (i = 0; i < imax; i+=3) {
@@ -144,7 +139,7 @@ void grayscale(UCHAR gray[][DIM2], UCHAR data[][DIM2][DIM3], int n_gyou, int n_r
 //この変更により、乗算は時間を食うことがわかった
 void heikinka(UCHAR gray[][DIM2], UCHAR data[][DIM2], int n_gyou, int n_retu)
 {
-	int g, r, i, j;
+  int g, r;
 	int tmp;
 
 	for (g = 1; g < n_gyou - 1; g++)
@@ -162,7 +157,7 @@ void heikinka(UCHAR gray[][DIM2], UCHAR data[][DIM2], int n_gyou, int n_retu)
 				+ data[g + 1][r + 1];
 
 			
-			gray[g][r] = (UCHAR)((float)tmp/9 + 0.5f); /* 四捨五入 */
+			gray[g][r] = (UCHAR)((tmp*2+9)/18); /* 四捨五入 */
 		}
 }
 
@@ -179,14 +174,12 @@ void copy(UCHAR gray[][DIM2], UCHAR data[][DIM2], int n_gyou, int n_retu)
 
 /* ラプラシアンの結果画像作成 */
 /* 外周部は処理しない。予め0を代入している。 */
-//Winograd's Minimal Filtering Algorism
 //im2colを使った実装(できたらやる)
 void laplasian(UCHAR lap[][DIM2], UCHAR data[][DIM2], int n_gyou, int n_retu)
 {
 	int g, r;
 	int tmp;
-	int tmp_center;
-	int tmp_others;
+
 
 	for (g = 1; g < n_gyou - 1; g++)
 		for (r = 1; r < n_retu - 1; r++)
@@ -213,7 +206,7 @@ void laplasian(UCHAR lap[][DIM2], UCHAR data[][DIM2], int n_gyou, int n_retu)
 /* 最外周部２列（２行）は処理しない。予め0を代入している。 */
 void zero_kousa(UCHAR res[][DIM2][DIM3], UCHAR org[][DIM2][DIM3], UCHAR data[][DIM2], int n_gyou, int n_retu, int col)
 {
-	int g, r, i, j, k;
+	int g, r;
 	int flag_p; /* 値が（HALF_VAL + THRESH）より大きいかをチェックするフラグ */
 	int flag_m; /* 値が（HALF_VAL - THRESH）より小さいかをチェックするフラグ */
 
@@ -221,12 +214,57 @@ void zero_kousa(UCHAR res[][DIM2][DIM3], UCHAR org[][DIM2][DIM3], UCHAR data[][D
 		for (r = 2; r < n_retu - 2; r++)
 		{
 			flag_p = flag_m = OFF;
-			for (i = -2; i <= 2; i++)
-				for (j = -2; j <= 2; j++)
-					if (data[g + i][r + j] < HALF_VAL - THRESH)
-						flag_m = ON;                /* （ラプラシアンの値 < -THRESH）の画素が近傍に１画素でもあるとON */
-					else if (data[g + i][r + j] > HALF_VAL + THRESH)
-						flag_p = ON;                /* （ラプラシアンの値 > THRESH）の画素が近傍に１画素でもあるとON */
+			if (data[g + -2][r + -2] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + -2][r + -2] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + -2][r + -1] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + -2][r + -1] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + -2][r + 0] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + -2][r + 0] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + -2][r + 1] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + -2][r + 1] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + -2][r + 2] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + -2][r + 2] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + -1][r + -2] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + -1][r + -2] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + -1][r + -1] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + -1][r + -1] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + -1][r + 0] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + -1][r + 0] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + -1][r + 1] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + -1][r + 1] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + -1][r + 2] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + -1][r + 2] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + 0][r + -2] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + 0][r + -2] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + 0][r + -1] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + 0][r + -1] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + 0][r + 0] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + 0][r + 0] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + 0][r + 1] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + 0][r + 1] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + 0][r + 2] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + 0][r + 2] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + 1][r + -2] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + 1][r + -2] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + 1][r + -1] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + 1][r + -1] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + 1][r + 0] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + 1][r + 0] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + 1][r + 1] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + 1][r + 1] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + 1][r + 2] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + 1][r + 2] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + 2][r + -2] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + 2][r + -2] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + 2][r + -1] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + 2][r + -1] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + 2][r + 0] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + 2][r + 0] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + 2][r + 1] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + 2][r + 1] > HALF_VAL + THRESH)flag_p = ON;
+			if (data[g + 2][r + 2] < HALF_VAL - THRESH)flag_m = ON;
+			else if (data[g + 2][r + 2] > HALF_VAL + THRESH)flag_p = ON;
+
 
 
 			
