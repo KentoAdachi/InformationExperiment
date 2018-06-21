@@ -12,7 +12,6 @@
 #include <ctype.h>
 #include <unistd.h>
 #include <sys/socket.h>
-#include <sys/un.h>
 #include <arpa/inet.h>
 
 int main(int argc, const char * argv[]) {
@@ -33,7 +32,7 @@ int main(int argc, const char * argv[]) {
     //bind
     memset((char *)&saddr, 0, sizeof(saddr));
     saddr.sin_family = AF_INET;
-    saddr.sin_port = htons(10800);
+    saddr.sin_port = htons(12345);
     saddr.sin_addr.s_addr = INADDR_ANY;
     
     if (bind(fd1, (struct sockaddr *)&saddr, (socklen_t)sizeof(saddr))< 0) {
