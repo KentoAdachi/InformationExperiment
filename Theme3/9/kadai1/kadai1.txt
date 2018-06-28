@@ -1,0 +1,17 @@
+//client
+Connection established: socket 3 used.
+I
+i
+like
+LIKE
+LiLiCo
+lIlIcO
+
+//server
+Connection established: socket 4 used.
+read: I
+write: i
+read: like
+write: LIKE
+read: LiLiCo
+write: lIlIcO

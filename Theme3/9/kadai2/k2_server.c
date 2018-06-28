@@ -1,5 +1,5 @@
 
-//  課題1サーバー
+// 課題2サーバー
 //  Created by 足立賢人 on 2018/06/21.
 //  Copyright © 2018年 足立賢人. All rights reserved.
 //
@@ -11,10 +11,11 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
-
+#define FILENAME "dic-w.txt"
+#define NOT_FOUND "未登録です"
 int main(int argc, const char * argv[]) {
     // insert code here...
-    int i;
+    
     int fd1, fd2;
     struct sockaddr_in saddr;
     struct sockaddr_in caddr;
@@ -22,6 +23,17 @@ int main(int argc, const char * argv[]) {
     int len;
     int ret;
     char buf[1024];
+    
+    //init dic
+    FILE *fp;
+    if ((fp = fopen(FILENAME, "r")) == NULL){
+        perror("file");
+        exit(1);
+    }
+    
+    
+    
+    
     //ソケット作成
     if ((fd1 = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         perror("socket");
@@ -48,24 +60,37 @@ int main(int argc, const char * argv[]) {
     
     while( 1 ) {
         len = sizeof( caddr );
-        if ( ( fd2 = accept( fd1, ( struct sockaddr * )&caddr, ( socklen_t * ) &len ) ) < 0 ) {
-            perror( "accept" );
+        if ( ( fd2 = (int)accept( fd1, ( struct sockaddr * )&caddr, ( socklen_t * ) &len ) ) < 0 ) {
+            perror("accept");
             exit( 1 );
         }
         fprintf( stderr, "Connection established: socket %d used.\n", fd2 );
         
-        while( ( ret = read( fd2, buf, 1024 ) ) > 0 ) {
+        while( ( ret = (int)read( fd2, buf, 1024 ) ) > 0 ) {
+            rewind(fp);
             fprintf( stderr, "read: %s\n", buf );
-            for ( i=0; i<ret; i++ )
-                if ( isupper( buf[i] ) )
-                    buf[i] = tolower(buf[i]);
             
-                else if (islower(buf[i]))
-                    buf[i] = toupper( buf[i] );
+            //use here for function
+            char key[128];
+            char dic[128];
+            int flag = 1;
+            while (fscanf(fp, "%s %s",key,dic) != EOF){
+                
+                if ( strcmp(key, buf)==0){
+                    fprintf( stderr, "write: %s\n", dic );
+                    write( fd2, dic, strlen( dic )+1 );
+                    flag = 0;
+                    break;
+                }
+            }
+            if (flag) {
+                fprintf( stderr, "write: " );
+                fprintf( stderr, NOT_FOUND);
+                fprintf( stderr, "\n " );
+                
+                write( fd2, NOT_FOUND, strlen(NOT_FOUND)+1 );
+            }
             
-            
-            fprintf( stderr, "write: %s\n", buf );
-            write( fd2, buf, strlen( buf )+1 );
             fsync( fd2 );
         }
         
@@ -74,6 +99,6 @@ int main(int argc, const char * argv[]) {
     close(fd1);
     
     
-    printf("Hello, World!\n");
+    
     return 0;
 }

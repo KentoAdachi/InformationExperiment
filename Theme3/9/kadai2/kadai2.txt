@@ -1,0 +1,17 @@
+//client
+Connection established: socket 3 used.
+dog
+犬
+monkey
+猿
+pheasant
+未登録です
+
+//server
+Connection established: socket 5 used.
+read: dog
+write: 犬
+read: monkey
+write: 猿
+read: pheasant
+write: 未登録です

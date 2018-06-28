@@ -1,5 +1,5 @@
 
-//  課題1クライアント
+//  課題2クライアント
 //  Created by 足立賢人 on 2018/06/21.
 //  Copyright © 2018年 足立賢人. All rights reserved.
 //
