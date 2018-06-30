@@ -40,13 +40,17 @@ int (*next_state_)(void);
 
 int main(int argc, const char * argv[]) {
     init_connection();
-    printf("ようこそ若き挑戦者よ\nQUITと入力すればいつでも切断できるぞ\n");
+    printf("老人「ようこそ若き勇者よ」\n老人「疲れた時は\"QUIT\"と入力すればいつでも終了できるぞ」\n");
     next_state_ = user_state;
     while (state_ < 4) {
         (*next_state_)();
         get_stat();
         //break;
     }
+    printf("\n張り紙の番号に電話をかけてみた\nプルルル...\n...ガチャ\n");
+    printf("老人『お疲れ様、宝はそう！ここまで登ってくる過程で君の頭の中に蓄積さr』\n");
+    printf("投げ捨てられた受話器は風切り音をたてながら雲海に吸い込まれていった\n");
+    printf("\nゲームクリアおめでとう！\n通信を終了します\n");
     close( soc_ );
 //    printf("end\n");
     return 0;
@@ -151,7 +155,7 @@ int pass_state(){
     get_message();
     if (strcmp(buf_, "OK") == 0) {
         next_state_ = quiz_state;
-        printf("認証成功\nでは張り切って行ってみよう\n");
+        printf("認証成功!\n老人「では張り切って行ってみよう」\n");
     }else{
         printf("認証失敗\n");
         next_state_ = user_state;
@@ -208,6 +212,27 @@ int ansr_state(){
     }
     //return
     printf("現在の正解数 : %d\n",correct_);
+    switch (correct_) {
+        case 0:
+            printf("塔は雲の上へと続いている\n");
+            break;
+        case 1:
+            printf("軽快に螺旋階段を駆け上がる音が響く\n");
+            break;
+        case 2:
+            printf("喉が乾いてきた\n");
+            break;
+        case 3:
+            printf("空気が薄くなってきた\n");
+            break;
+        case 4:
+            printf("終わりが見えてきた\n");
+            break;
+        case 5:
+            printf("塔の屋上には1枚の張り紙があった\n");
+        default:
+            break;
+    }
     
     return 0;
 }

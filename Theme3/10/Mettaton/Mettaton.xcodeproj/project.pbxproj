@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3733F41020E4B1E200E983B5 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 3733F40F20E4B1E200E983B5 /* main.c */; };
+		3733F41020E4B1E200E983B5 /* quiz.c in Sources */ = {isa = PBXBuildFile; fileRef = 3733F40F20E4B1E200E983B5 /* quiz.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +24,7 @@
 
 /* Begin PBXFileReference section */
 		3733F40C20E4B1E200E983B5 /* Mettaton */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Mettaton; sourceTree = BUILT_PRODUCTS_DIR; };
-		3733F40F20E4B1E200E983B5 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		3733F40F20E4B1E200E983B5 /* quiz.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = quiz.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +57,7 @@
 		3733F40E20E4B1E200E983B5 /* Mettaton */ = {
 			isa = PBXGroup;
 			children = (
-				3733F40F20E4B1E200E983B5 /* main.c */,
+				3733F40F20E4B1E200E983B5 /* quiz.c */,
 			);
 			path = Mettaton;
 			sourceTree = "<group>";
@@ -118,7 +118,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3733F41020E4B1E200E983B5 /* main.c in Sources */,
+				3733F41020E4B1E200E983B5 /* quiz.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
