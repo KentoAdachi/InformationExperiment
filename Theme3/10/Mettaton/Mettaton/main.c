@@ -13,15 +13,17 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
+//#define DEB
+
 #define USER_STATE 0
 #define PASS_STATE 1
 #define QUIZ_STATE 2
 #define ANSR_STATE 3
 #define GETM_STATE 4
-
 int soc_;
 int state_ = -1;
 int correct_ = 0;
+int count_ = 0;
 char buf_[1024];
 
 int init_connection(void);
@@ -38,30 +40,15 @@ int (*next_state_)(void);
 
 int main(int argc, const char * argv[]) {
     init_connection();
-    
-//    while( fgets( buf, 1024, stdin ) ) {
-//        if ( buf[strlen(buf)-1] == '\n' ) buf[strlen(buf)-1] = '\0';
-//        send_message(buf);
-//        fsync( soc_ );//同期
-//        get_message(buf);
-//        //read( soc_, buf, 1024 );
-//
-//        fprintf( stdout, "%s\n", buf );
-//    }
-    printf("start\n");
-    
+    printf("ようこそ若き挑戦者よ\nQUITと入力すればいつでも切断できるぞ\n");
     next_state_ = user_state;
     while (state_ < 4) {
         (*next_state_)();
         get_stat();
         //break;
     }
-    
-    
     close( soc_ );
-    
-    
-    printf("end\n");
+//    printf("end\n");
     return 0;
 }
 
@@ -94,19 +81,29 @@ int init_connection(){
 //メッセージをバッファに受け取る
 int get_message(){
     read( soc_, buf_, 1024 );
+#ifdef DEB
     printf(">%s\n",buf_);
+#endif
     return 0;
 }
-//stat  間違えたかず 正解の数など
 //メッセージの書き込み
 int send_message(char *message){
+    if (strstr(message, "QUIT")) {
+        strcpy(message, "QUIT");
+        exit(0);
+    }
+#ifdef DEB
     printf("<%s\n",message);
+#endif
     write( soc_,message, strlen(message)+1 );
     fsync( soc_ );//同期
     return 0;
 }
+
 int print_state(){
+#ifdef DEB
     fprintf(stderr, "state: %d\n",state_);
+#endif
     return state_;
 }
 int get_stat(){
@@ -123,7 +120,7 @@ int user_state(){
     state_ = USER_STATE;
     print_state();
     //input
-    printf("input user name : ");
+    printf("名前を入力してください : ");
     fgets( buf_, 1024, stdin );
     if ( buf_[strlen(buf_)-1] == '\n' ) buf_[strlen(buf_)-1] = '\0';
     sprintf(message, "USER %s",buf_);
@@ -131,9 +128,8 @@ int user_state(){
     get_message();
     if (strcmp(buf_, "OK") == 0) {
         next_state_ = pass_state;
-        printf("ok\n");
     }else{
-        printf("やり直し\n");
+        printf("そのようなユーザーは存在しません\n");
     }
     //return
     
@@ -147,7 +143,7 @@ int pass_state(){
     state_ = PASS_STATE;
     print_state();
     //input
-    printf("input user password : ");
+    printf("パスワードを入力してください : ");
     fgets( buf_, 1024, stdin );
     if ( buf_[strlen(buf_)-1] == '\n' ) buf_[strlen(buf_)-1] = '\0';
     sprintf(message, "PASS %s",buf_);
@@ -155,9 +151,10 @@ int pass_state(){
     get_message();
     if (strcmp(buf_, "OK") == 0) {
         next_state_ = quiz_state;
-        printf("ok\n");
+        printf("認証成功\nでは張り切って行ってみよう\n");
     }else{
-        printf("やり直し\n");
+        printf("認証失敗\n");
+        next_state_ = user_state;
     }
     //return
     
@@ -170,7 +167,7 @@ int quiz_state(){
     state_ = QUIZ_STATE;
     print_state();
     //input
-    printf("call quiz\n");
+    printf("\n第%d問\n",++count_);
     sprintf(message, "QUIZ %d",correct_);
     send_message(message);
     get_message();
@@ -201,20 +198,34 @@ int ansr_state(){
     get_message();
     next_state_ = quiz_state;
     if (strcmp(buf_, "OK") == 0) {
-        printf("OK\n");
-        correct_ ++;
+        printf("正解です\n");
+        correct_++;
         if (correct_ >= 5) {
             next_state_ = getm_state;
         }
     }else{
-        printf("NG\n");
+        printf("不正解です\n");
     }
     //return
+    printf("現在の正解数 : %d\n",correct_);
     
     return 0;
 }
 //秘密のメッセージ送信を受け付ける状態
 int getm_state(){
+    state_ = GETM_STATE;
+    print_state();
+    
+    printf("秘密のメッセージを受け取ります\n");
+    send_message("GET MESSAGE");
+    get_message();
+    if (strcmp(buf_, "NG") == 0) {
+        printf("メッセージの受け取りに失敗しました\n");
+    }else if(strcmp(buf_, "ERROR") == 0){
+        printf("不正な入力を行いました\n");
+    }else{
+        printf("秘密のメッセージは %s です\n",buf_);
+    }
     return 0;
 }
-//コネクションを閉じる状態
+
