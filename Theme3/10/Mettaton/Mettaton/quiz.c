@@ -38,7 +38,10 @@ int getm_state(void);
 int (*next_state_)(void);
 
 
+
+
 int main(int argc, const char * argv[]) {
+    
     init_connection();
     printf("老人「ようこそ若き勇者よ」\n老人「疲れた時は\"QUIT\"と入力すればいつでも終了できるぞ」\n");
     next_state_ = user_state;
@@ -51,7 +54,9 @@ int main(int argc, const char * argv[]) {
     printf("老人『お疲れ様、宝はそう！ここまで登ってくる過程で君の頭の中に蓄積さr』\n");
     printf("投げ捨てられた受話器は風切り音をたてながら雲海に吸い込まれていった\n");
     printf("\nゲームクリアおめでとう！\n通信を終了します\n");
+    send_message("QUIT");
     close( soc_ );
+    
 //    printf("end\n");
     return 0;
 }
@@ -62,6 +67,7 @@ int main(int argc, const char * argv[]) {
 int init_connection(){
     // insert code here...
     struct sockaddr_in saddr;
+    
     //socket
     if ((soc_ = socket(AF_INET, SOCK_STREAM, 0))<0) {
         perror("socket");
@@ -70,8 +76,8 @@ int init_connection(){
     //connect
     memset((char *)&saddr, 0, sizeof(saddr));
     saddr.sin_family = AF_INET;
-    saddr.sin_port = htons(34401);//本番用34401 ログ確認用10000
-    saddr.sin_addr.s_addr = inet_addr("172.29.144.26");//localhost
+    saddr.sin_port = htons(34493);//本番用34401 ログ確認用10000
+    saddr.sin_addr.s_addr = inet_addr("172.29.144.27");//localhost
     //172.29.144.26
     //172.29.144.100 ログ確認用
     
@@ -93,8 +99,8 @@ int get_message(){
 //メッセージの書き込み
 int send_message(char *message){
     if (strstr(message, "QUIT")) {
-        strcpy(message, "QUIT");
-        exit(0);
+        write(soc_, "QUIT", strlen("QUIT")+1);
+        return 0;
     }
 #ifdef DEB
     printf("<%s\n",message);
@@ -238,11 +244,13 @@ int ansr_state(){
 }
 //秘密のメッセージ送信を受け付ける状態
 int getm_state(){
+    char message[1024];
+    strcpy(message, "GET MESSAGE");
     state_ = GETM_STATE;
     print_state();
     
     printf("秘密のメッセージを受け取ります\n");
-    send_message("GET MESSAGE");
+    send_message(message);
     get_message();
     if (strcmp(buf_, "NG") == 0) {
         printf("メッセージの受け取りに失敗しました\n");
@@ -250,6 +258,7 @@ int getm_state(){
         printf("不正な入力を行いました\n");
     }else{
         printf("秘密のメッセージは %s です\n",buf_);
+        
     }
     return 0;
 }
