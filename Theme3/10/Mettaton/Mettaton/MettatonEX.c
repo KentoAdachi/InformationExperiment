@@ -13,7 +13,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
-//#define DEB
+#define DEB
 
 #define USER_STATE 0
 #define PASS_STATE 1
@@ -22,7 +22,7 @@
 #define GETM_STATE 4
 #define USER_ID "bp16001"
 #define PASSWORD "10061pb"
-#define FILENAME "resource/output.txt"
+#define FILENAME "resource/fever.txt"
 
 int soc_;
 int state_ = -1;
@@ -65,9 +65,8 @@ int main(int argc, const char * argv[]) {
         init_connection();
         next_state_ = user_state;
         while (state_ < GETM_STATE && count_ <= 200) {
-            if (ans > 2020)ans = 1900;
             (*next_state_)();
-            ans++;
+//            get_stat();
         }
         send_message("QUIT");
         close( soc_ );
@@ -96,7 +95,7 @@ int init_connection(){
     //connect
     memset((char *)&saddr, 0, sizeof(saddr));
     saddr.sin_family = AF_INET;
-    saddr.sin_port = htons(34402);//本番用34401 ログ確認用10000
+    saddr.sin_port = htons(34401);//本番用34401 ログ確認用10000
     saddr.sin_addr.s_addr = inet_addr("172.29.144.26");//localhost
     //172.29.144.26
     //172.29.144.100 ログ確認用
@@ -197,6 +196,9 @@ int quiz_state(){
     send_message(message);
     //get_message();
     read(soc_, quiz, 1024);
+    if (strstr(quiz, "fever") != NULL || strstr(quiz, "Fever") != NULL) {
+        fprintf(fp, "%s\n",quiz);
+    }
     if (strcmp(quiz, "NG\n") == 0) {
         printf("やり直し\n");
         //        state_ = 5;
@@ -211,7 +213,7 @@ int quiz_state(){
 }
 //回答を生成する
 int generate_answer(){
-    return ans;
+    return -1;
 }
 //回答を受け付ける状態
 int ansr_state(){

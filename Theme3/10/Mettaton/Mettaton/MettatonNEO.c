@@ -30,7 +30,7 @@ int correct_ = 0;
 int count_ = 0;
 char buf_[1024];
 char ans_[1024];
-
+int ai=0;
 
 int init_connection(void);
 int send_message(char *);
@@ -45,26 +45,23 @@ int (*next_state_)(void);
 
 
 int gen_ans(int size){
-    char a[1024];
-    
-    char moji;
-    int i;
-    for (i = 0; i < size; i++) {
-        if (i == 0) {
-            moji = rand()%25+65;
-        }else{
-            moji = rand()%25+97;
-        }
-        a[i] = moji;
-//        printf("moji = %c\n",moji);
-    }
-    a[i] = '\0';
-//    printf("a = %s\n",a);
-    //1文字目は大文字
-    //2文字目以降は小文字
-    //感嘆符2個つくかも
-    
-    sprintf(ans_, "ANSR %s",a);
+//    char a[1024];
+//
+//    char moji;
+//    int i;
+//    for (i = 0; i < size; i++) {
+//        if (i == 0) {
+//            moji = rand()%25+65;
+//        }else{
+//            moji = rand()%25+97;
+//        }
+//        a[i] = moji;
+////        printf("moji = %c\n",moji);
+//    }
+//    a[i] = '\0';
+//
+//    sprintf(ans_, "ANSR %s",a);
+    sprintf(ans_, "ANSR %d",ai++);
     
     return 0;
 }
@@ -101,22 +98,22 @@ int main(int argc, const char * argv[]) {
     get_message();
     send_message("QUIZ 4");
     get_message();
-        send_message("ANSR France!!");
-    
-        get_message();
+//        send_message("ANSR France!!");
+//    
+//        get_message();
         
     printf("%s\n",buf_);
     //何かしらの答え
-//    gen_ans(5);
-//    send_message(ans_);
-//    get_message();
-//    if (strcmp(buf_, "OK") == 0) {
-//        printf("答えは %s",ans_);
-//        exit(0);
-//    }else{
-//        printf("no\n");
-//
-//    }
+    gen_ans(5);
+    send_message(ans_);
+    get_message();
+    if (strcmp(buf_, "OK") == 0) {
+        printf("答えは %s",ans_);
+        exit(0);
+    }else{
+        printf("no\n");
+
+    }
     
     
     

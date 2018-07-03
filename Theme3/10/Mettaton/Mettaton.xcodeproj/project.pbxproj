@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		37F272E220E9A60900707CFA /* MettatonNEO.c in Sources */ = {isa = PBXBuildFile; fileRef = 37F272E120E9A60900707CFA /* MettatonNEO.c */; };
+		37F272E320EA6ECE00707CFA /* MettatonEX.c in Sources */ = {isa = PBXBuildFile; fileRef = 3733F41620E76BEF00E983B5 /* MettatonEX.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -122,6 +123,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37F272E320EA6ECE00707CFA /* MettatonEX.c in Sources */,
 				37F272E220E9A60900707CFA /* MettatonNEO.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

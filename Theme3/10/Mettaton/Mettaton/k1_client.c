@@ -16,8 +16,9 @@ int portnum;
 
 int main(int argc, const char * argv[]) {
     // insert code here...
+//    portnum = 34493;
     portnum = 34493;
-    
+    //STAT :::状態番号:正解数:不正解数:ログイン回数
     
         
     struct sockaddr_in saddr;
@@ -32,7 +33,8 @@ int main(int argc, const char * argv[]) {
     memset((char *)&saddr, 0, sizeof(saddr));
     saddr.sin_family = AF_INET;
     saddr.sin_port = htons(portnum);
-    saddr.sin_addr.s_addr = inet_addr("172.29.144.27");//localhost
+//    saddr.sin_addr.s_addr = inet_addr("172.29.144.27");//localhost
+    saddr.sin_addr.s_addr = inet_addr("172.29.144.27");
     
     if (connect(soc, (struct sockaddr *)&saddr, (socklen_t)sizeof(saddr))< 0) {
         perror("connect");
