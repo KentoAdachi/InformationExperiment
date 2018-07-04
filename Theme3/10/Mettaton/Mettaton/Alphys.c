@@ -13,7 +13,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
-#define DEB
+//#define DEB
 
 #define USER_STATE 0
 #define PASS_STATE 1
@@ -61,7 +61,7 @@ int init_quiz_list(){
         N++;
         
     }
-    printf("init ok\n");
+//    printf("init ok\n");
     return 0;
 }
 
@@ -72,27 +72,39 @@ int main(int argc, const char * argv[]) {
     
     
     ans = 0;
+    int not_clear = 1;
     
     fp = fopen(FILENAME, "r");
     if (fp == NULL) {
         exit(1);
     }
-    correct_ = 0;
-    count_ = 0;
-    state_ =USER_STATE;
-    init_connection();
-    next_state_ = user_state;
     
+    while(not_clear){
+        
+        correct_ = 0;
+        count_ = 0;
+        state_ =USER_STATE;
+        init_connection();
+        next_state_ = user_state;
+        
+        
+        init_quiz_list();
+        
+        while ( count_ <= 10) {
+            if (state_ < GETM_STATE) {
+                (*next_state_)();
+            //            get_stat();
+            }else{
+                not_clear =0;
+                break;
+            }
+        }
+        send_message("QUIT");
+        close( soc_ );
+//        printf("close\n");
     
-    init_quiz_list();
-    
-    while (state_ < GETM_STATE && count_ <= 200) {
-        (*next_state_)();
-        //            get_stat();
+        
     }
-    send_message("QUIT");
-    close( soc_ );
-    printf("close\n");
     fclose(fp);
     
     return 0;
@@ -121,7 +133,7 @@ int init_connection(){
         perror("connect");
         exit(1);
     }
-    fprintf( stderr, "Connection established: socket %d used.\n", soc_ );
+//    fprintf( stderr, "Connection established: socket %d used.\n", soc_ );
     return 0;
 }
 
@@ -192,7 +204,7 @@ int pass_state(){
     get_message();
     if (strcmp(buf_, "OK") == 0) {
         next_state_ = quiz_state;
-        printf("認証成功!\n");
+//        printf("認証成功!\n");
     }else{
         printf("認証失敗\n");
         next_state_ = user_state;
@@ -208,7 +220,7 @@ int quiz_state(){
     state_ = QUIZ_STATE;
     print_state();
     //input
-    printf("第%d問\n",++count_);
+//    printf("第%d問\n",++count_);
     sprintf(message, "QUIZ %d",correct_);
     send_message(message);
     //get_message();
@@ -232,7 +244,7 @@ int generate_answer(){
     for (i = 0; i < N; i++) {
 //        printf("%s %s\n",quiz,qlist[i]);
         if (strstr(qlist[i], quiz) != NULL) {
-            printf("hit\n");
+//            printf("hit\n");
             return alist[i];
         }
     }
@@ -251,7 +263,7 @@ int ansr_state(){
     get_message();
     next_state_ = quiz_state;
     if (strcmp(buf_, "OK") == 0) {
-        printf("正解です\n");
+//        printf("正解です\n");
         correct_++;
         
         if (correct_ >= 5) {
@@ -270,7 +282,7 @@ int getm_state(){
     state_ = GETM_STATE;
     print_state();
     
-    printf("秘密のメッセージを受け取ります\n");
+//    printf("秘密のメッセージを受け取ります\n");
     send_message("GET MESSAGE");
     get_message();
     if (strcmp(buf_, "NG") == 0) {
