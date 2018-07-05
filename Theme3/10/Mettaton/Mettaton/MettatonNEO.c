@@ -98,22 +98,31 @@ int main(int argc, const char * argv[]) {
     get_message();
     send_message("QUIZ 4");
     get_message();
+        
+        
+        while( fgets( buf_, 1024, stdin ) ) {
+            if ( buf_[strlen(buf_)-1] == '\n' ) buf_[strlen(buf_)-1] = '\0';
+            write( soc_, buf_, strlen( buf_ )+1 );
+            fsync( soc_ );
+            read( soc_, buf_, 1024 );
+            fprintf( stdout, "%s\n", buf_ );
+        }
 //        send_message("ANSR France!!");
 //    
 //        get_message();
         
-    printf("%s\n",buf_);
-    //何かしらの答え
-    gen_ans(5);
-    send_message(ans_);
-    get_message();
-    if (strcmp(buf_, "OK") == 0) {
-        printf("答えは %s",ans_);
-        exit(0);
-    }else{
-        printf("no\n");
-
-    }
+//    printf("%s\n",buf_);
+//    //何かしらの答え
+//    gen_ans(5);
+//    send_message(ans_);
+//    get_message();
+//    if (strcmp(buf_, "OK") == 0) {
+//        printf("答えは %s",ans_);
+//        exit(0);
+//    }else{
+//        printf("no\n");
+//
+//    }
     
     
     

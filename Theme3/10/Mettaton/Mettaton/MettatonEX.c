@@ -95,7 +95,7 @@ int init_connection(){
     //connect
     memset((char *)&saddr, 0, sizeof(saddr));
     saddr.sin_family = AF_INET;
-    saddr.sin_port = htons(34401);//本番用34401 ログ確認用10000
+    saddr.sin_port = htons(34402);//本番用34401 ログ確認用10000
     saddr.sin_addr.s_addr = inet_addr("172.29.144.26");//localhost
     //172.29.144.26
     //172.29.144.100 ログ確認用
@@ -196,9 +196,9 @@ int quiz_state(){
     send_message(message);
     //get_message();
     read(soc_, quiz, 1024);
-    if (strstr(quiz, "fever") != NULL || strstr(quiz, "Fever") != NULL) {
-        fprintf(fp, "%s\n",quiz);
-    }
+//    if (strstr(quiz, "fever") != NULL || strstr(quiz, "Fever") != NULL) {
+//        fprintf(fp, "%s\n",quiz);
+//    }
     if (strcmp(quiz, "NG\n") == 0) {
         printf("やり直し\n");
         //        state_ = 5;
@@ -213,7 +213,8 @@ int quiz_state(){
 }
 //回答を生成する
 int generate_answer(){
-    return -1;
+    ans = 344;
+    return 344;
 }
 //回答を受け付ける状態
 int ansr_state(){

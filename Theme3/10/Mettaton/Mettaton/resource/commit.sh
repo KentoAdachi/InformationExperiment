@@ -1,1 +1,1 @@
-cat output.txt | sort | uniq > uniq.txt
+cat output.txt 344.txt | sort | uniq > uniq.txt
