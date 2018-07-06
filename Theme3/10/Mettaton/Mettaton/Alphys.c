@@ -13,7 +13,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
-//#define DEB
+#define DEB
 
 #define USER_STATE 0
 #define PASS_STATE 1
@@ -87,7 +87,6 @@ int main(int argc, const char * argv[]) {
         init_connection();
         next_state_ = user_state;
         
-        
         init_quiz_list();
         
         while ( count_ <= 10) {
@@ -102,8 +101,6 @@ int main(int argc, const char * argv[]) {
         send_message("QUIT");
         close( soc_ );
 //        printf("close\n");
-    
-        
     }
     fclose(fp);
     

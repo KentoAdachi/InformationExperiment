@@ -76,7 +76,7 @@ int init_connection(){
     //connect
     memset((char *)&saddr, 0, sizeof(saddr));
     saddr.sin_family = AF_INET;
-    saddr.sin_port = htons(34493);//本番用34401 ログ確認用10000
+    saddr.sin_port = htons(34401);//本番用34401 ログ確認用10000
     saddr.sin_addr.s_addr = inet_addr("172.29.144.27");//localhost
     //172.29.144.26
     //172.29.144.100 ログ確認用
