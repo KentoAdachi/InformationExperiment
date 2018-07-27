@@ -120,6 +120,7 @@ public class Graph {
 	
 	void solveTSPNearestAddition(){
 		ArrayList<Integer>list = new ArrayList<>();
+//		list.add(0);
 		list.add(0);
 		Route route = new Route(0, list);
 		route = searchNearestAddition(route);
@@ -140,7 +141,6 @@ public class Graph {
 		int to = -1;
 		
 		if(route.elements_.size() == n_){
-			
 			return route;
 		}
 		
@@ -159,7 +159,7 @@ public class Graph {
 			}
 		}
 		
-		route.elements_.add(route.elements_.indexOf(from), to);
+		route.elements_.add(route.elements_.lastIndexOf(from), to);
 		
 		return searchNearestAddition(route);
 		
@@ -238,7 +238,7 @@ public class Graph {
 					 elements_[i][j] = 0;
 				 }
 				 if(j > i){
-					 elements_[i][j] = random.nextInt(10);
+					 elements_[i][j] = random.nextInt(9)+1;
 				 }
 			 }
 		 }
